@@ -39,6 +39,20 @@ class House(db.Model):
     price_predicted = db.Column(db.String(), nullable=False)
     date = db.Column(db.String(), nullable=False)
 
+# schema for user table
+
+
+class User(db.Model):
+    """"
+    sno, fname, email, password, date
+    """
+
+    sno = db.Column(db.Integer, primary_key=True)
+    fname = db.Column(db.String(), nullable=False)
+    email = db.Column(db.String(), nullable=False)
+    password = db.Column(db.String(), nullable=False)
+    date = db.Column(db.String(), nullable=False)
+
 
 @app.route('/')
 def home():
@@ -57,6 +71,23 @@ def login():
 def signup():
     if request.method == 'GET':
         return render_template('signup.html')
+
+    else:
+        fname = request.form.get('fname')
+        email = request.form.get('email')
+        password1 = request.form.get('pass1')
+        password2 = request.form.get('pass2')
+
+        if password1 == password2:
+            entry = User(fname=fname, email=email, password=password1, date=datetime.now())
+
+            db.session.add(entry)
+            db.session.commit()
+
+            return redirect('/')
+
+        else:
+            return redirect('/signup')
 
 
 @app.route('/house/<string:sno>', methods=['GET'])
