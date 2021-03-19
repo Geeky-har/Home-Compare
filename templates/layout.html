@@ -29,26 +29,30 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link ml-2 pb-3" href="/" onclick="scrollToDownload()">
-                            <span class="material-icons">home</span><br></br>Home</a>
+                            <span class="material-icons ml-2 pb-3 ">home</span><br>Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link ml-2 pb-3" href="/form">
-                            <span class="material-icons">list_alt</span><br></br>Form</a>
+                            <span class="material-icons  ml-2 pb-3">list_alt</span><br>Form</a>
                     </li>
 
                     {% if islog %}
                     <li class="nav-item">
                         <a class="nav-link ml-2 pb-3" href="/logout">
-                            <span class="material-icons">logout</span><br></br>Log Out</a>
+                            <span class="material-icons ml-2 pb-3">logout</span><br>Log Out</a>
                     </li>
+                    <li class="nav-item">
+                            <span class="material-icons">{{ session.user }}</span><br>
+                    </li>
+
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link ml-2 pb-3" href="/login">
-                            <span class="material-icons">login</span><br></br>Login</a>
+                            <span class="material-icons ml-2 pb-3">login</span><br>Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ml-2 pb-3" href="/signup">
-                            <span class="material-icons">mail_outline</span><br></br>Sign-up</a>
+                        <a class="nav-link" href="/signup">
+                            <span class="material-icons ml-2 pb-3" >mail_outline</span><br>Sign-up</a>
                     </li>
                     {% endif %}
 

@@ -31,6 +31,9 @@
 
     {% for house in houses %} {% set fname = 'house_images_user/' + house.image_exterior %}
 
+    {%  set fprice_lower = house.price_predicted - ((house.price_predicted * 10)  / 100)   %}
+    {%  set fprice_higher = house.price_predicted + ((house.price_predicted * 10) / 100 )  %}
+
     <div class="col-4">
         <div class="card">
             <a href="/house/{{house.sno}}">
@@ -39,9 +42,9 @@
                     <h3 class="card-title"> Price quoted by seller</h3>
                     <p class="card-text">
                         <p style="text-decoration: line-through">{{house.price_quoted}} Lakhs</p>
-                        <h5 class=" card-title ">Our Predicted Price</h5>
+                        <h5 class=" card-title ">Predicted Price Range</h5>
                         <p class="card-text ">
-                            <p>{{house.price_predicted}} Lakhs</p>
+                            <p>{{fprice_lower}} - {{fprice_higher}} Lakhs</p>
                             <h5 class="card-title ">Description</h5>
                             <p class="card-text ">
                                 {{house.description}}

@@ -38,7 +38,7 @@ class House(db.Model):
     image_interior = db.Column(db.String(200), nullable=False)
     image_exterior = db.Column(db.String(200), nullable=False)
     price_quoted = db.Column(db.String(), nullable=False)
-    price_predicted = db.Column(db.String(), nullable=False)
+    price_predicted = db.Column(db.Integer(), nullable=False)
     date = db.Column(db.String(), nullable=False)
 
 # schema for user table
@@ -84,6 +84,7 @@ def login():
 
         if email == val_email and password == val_pass:
             session['logged_in'] = True
+            session['user'] = email
 
             return redirect('/')
 

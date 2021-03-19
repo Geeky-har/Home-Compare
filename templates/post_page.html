@@ -8,6 +8,8 @@
 
 {%  set fname1 = 'house_images_user/' + house_first.image_exterior  %}
 {%  set fname2 = 'house_images_user/' + house_first.image_interior  %}
+{%  set fprice_lower = house_first.price_predicted - ((house_first.price_predicted * 10)  / 100)   %}
+{%  set fprice_higher = house_first.price_predicted + ( (house_first.price_predicted * 10) / 100 )  %}
 
     <div class="page-header header-filter clear-filter " data-parallax="true" style="background-image: url('  {{ url_for('static', filename = 'image/house2.jpg') }}  '); z-index: -1; ">
         <div class="container">
@@ -57,8 +59,8 @@
             <h2>Price Quoted by the seller</h2>
             <p> {{house_first.price_quoted}} Lakhs</p>
 
-            <h2>Price Predicted by us</h2>
-            <p> {{house_first.price_predicted}} Lakhs</p>
+            <h2>Predicted Price Range</h2>
+            <p> {{fprice_lower}} - {{fprice_higher}} Lakhs</p>
 
             <h3> BHK</h3>
             <p> {{house_first.bhk}} </p>
@@ -67,7 +69,7 @@
             <p> {{house_first.address}} </p>
             
             <h3> Area</h3>
-            <p> {{house_first.area}} </p>
+            <p> {{house_first.area}} sq ft</p>
 
             <h3>Description of your house</h3>
             <p> {{house_first.description}} </p>
