@@ -35,6 +35,13 @@
                         <a class="nav-link ml-2 pb-3" href="/form">
                             <span class="material-icons">list_alt</span><br></br>Form</a>
                     </li>
+
+                    {% if islog %}
+                    <li class="nav-item">
+                        <a class="nav-link ml-2 pb-3" href="/logout">
+                            <span class="material-icons">logout</span><br></br>Log Out</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link ml-2 pb-3" href="/login">
                             <span class="material-icons">login</span><br></br>Login</a>
@@ -43,6 +50,8 @@
                         <a class="nav-link ml-2 pb-3" href="/signup">
                             <span class="material-icons">mail_outline</span><br></br>Sign-up</a>
                     </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>

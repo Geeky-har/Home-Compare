@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -8,11 +8,13 @@ from latlong import get_co
 from clf_interior import pred_interior
 from clf_exterior import pred_exterior
 
+
 UPLOAD_FOLDER = 'C:\\Users\\HARSH\\Desktop\\Hackathon\\static\\house_images_user'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = 'vishalrupamharsh'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:@localhost:3307/bargaining"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -58,13 +60,35 @@ class User(db.Model):
 def home():
     houses = House.query.filter_by().all()
 
-    return render_template('index.html', houses=houses)
+    if session.get('logged_in'):
+        islog = True
+        print('logged in')
+
+    else:
+        islog = False
+        print('Not logged in')
+
+    return render_template('index.html', houses=houses, islog=islog)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
+
+    else:
+        email = request.form.get('email')
+        password = request.form.get('pass')
+        val_email = User.query.filter_by(email=email).first()
+        val_pass = User.query.filter_by(password=password).first()
+
+        if email == val_email and password == val_pass:
+            session['logged_in'] = True
+
+            return redirect('/')
+
+        else:
+            return redirect('/login')
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -160,6 +184,12 @@ def form():
         return redirect('/')
 
     return render_template('form.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in')
+    return redirect('/')
 
 
 if __name__ == "__main__":
